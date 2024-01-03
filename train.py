@@ -46,7 +46,7 @@ test_accuracy = best_model.score(X_test, y_test)
 print(f"Test Accuracy with Best Model: {test_accuracy}")
 
 # Obtiene informes de clasificación y matrices de confusión
-classification_rep = classification_report(y_test, best_model.predict(X_test), labels=best_model.classes_, output_dict=True)
+classification_rep = classification_report(y_test, best_model.predict(X_test), labels=best_model.classes_, output_dict=True,digits=2)
 conf_matrix = confusion_matrix(y_test, best_model.predict(X_test), labels=best_model.classes_)
 
 # Imprime informe de clasificación
@@ -54,6 +54,16 @@ conf_matrix = confusion_matrix(y_test, best_model.predict(X_test), labels=best_m
 sns.heatmap(pd.DataFrame(classification_rep).iloc[:-1, :].T, annot=True,)
 plt.title("Classification Report")
 plt.savefig("classification_report.png")  # Guarda el informe de clasificación()
+
+# Guarda los resultados en un archivo de texto
+with open("metrics.txt", "w") as f:
+    f.write(f"Test Accuracy: {round(test_accuracy,3)}\n")
+    f.write(f"Precision label_0: {round(classification_rep['0.0']['precision'],3)}\n")
+    f.write(f"Precision label_1: {round(classification_rep['1.0']['precision'],3)}\n")
+    f.write(f"Recall label_0: {round(classification_rep['0.0']['recall'],3)}\n")
+    f.write(f"Recall label_1: {round(classification_rep['1.0']['recall'],3)}\n")
+
+
 
 # Visualiza la matriz de confusión
 disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=best_model.classes_)

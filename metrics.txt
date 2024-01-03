@@ -1,1 +1,5 @@
-Accuracy:     0.8520
+Test Accuracy: 0.864
+Precision label_0: 0.814
+Precision label_1: 0.917
+Recall label_0: 0.913
+Recall label_1: 0.822
