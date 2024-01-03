@@ -57,11 +57,11 @@ plt.savefig("classification_report.png")  # Guarda el informe de clasificación(
 
 # Guarda los resultados en un archivo de texto
 with open("metrics.txt", "w") as f:
-    f.write(f"Test Accuracy: {round(test_accuracy,3)}\n")
-    f.write(f"Precision label_0: {round(classification_rep['0.0']['precision'],3)}\n")
-    f.write(f"Precision label_1: {round(classification_rep['1.0']['precision'],3)}\n")
-    f.write(f"Recall label_0: {round(classification_rep['0.0']['recall'],3)}\n")
-    f.write(f"Recall label_1: {round(classification_rep['1.0']['recall'],3)}\n")
+    f.write(f"Test Accuracy: {test_accuracy}")
+    # f.write(f"Precision label_0: {round(classification_rep['0.0']['precision'],3)}\n")
+    # f.write(f"Precision label_1: {round(classification_rep['1.0']['precision'],3)}\n")
+    # f.write(f"Recall label_0: {round(classification_rep['0.0']['recall'],3)}\n")
+    # f.write(f"Recall label_1: {round(classification_rep['1.0']['recall'],3)}\n")
 
 
 
