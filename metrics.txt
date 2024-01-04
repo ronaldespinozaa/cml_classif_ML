@@ -1,1 +1,2 @@
 Test Accuracy: 0.864
+Best Parameters: {'C': 0.1, 'l1_ratio': 0.7, 'max_iter': 500}

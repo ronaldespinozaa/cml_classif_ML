@@ -40,10 +40,12 @@ grid_search.fit(X_train, y_train)
 
 # Obtiene el mejor modelo
 best_model = grid_search.best_estimator_
+best_params = grid_search.best_params_
 
 # Evalúa el rendimiento del mejor modelo en el conjunto de prueba
 test_accuracy = best_model.score(X_test, y_test)
 print(f"Test Accuracy with Best Model: {test_accuracy}")
+print(f"Best Parameters: {best_params}")
 
 # Obtiene informes de clasificación y matrices de confusión
 classification_rep = classification_report(y_test, best_model.predict(X_test), labels=best_model.classes_, output_dict=True,digits=2)
@@ -57,7 +59,8 @@ plt.savefig("classification_report.png")  # Guarda el informe de clasificación(
 
 # Guarda los resultados en un archivo de texto
 with open("metrics.txt", "w") as f:
-    f.write(f"Test Accuracy: {test_accuracy}")
+    f.write(f"Test Accuracy: {test_accuracy}\n")
+    f.write(f"Best Parameters: {best_params}")
     # f.write(f"Precision label_0: {round(classification_rep['0.0']['precision'],3)}\n")
     # f.write(f"Precision label_1: {round(classification_rep['1.0']['precision'],3)}\n")
     # f.write(f"Recall label_0: {round(classification_rep['0.0']['recall'],3)}\n")
