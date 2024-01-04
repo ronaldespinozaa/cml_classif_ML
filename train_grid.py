@@ -23,22 +23,21 @@ plt.title("Balanced data")
 plt.savefig("balanced_data.png")
 
 # Crea el modelo de regresión logística
-model = RandomForestClassifier()
+model = LogisticRegression()
 
 # Definir el espacio de búsqueda de parámetros
 param_grid = {
-    'n_estimators': [500, 1000, 1500, 2000],
-    'criterion': ['gini', 'entropy'],
-    'max_depth': [None, 5, 10, 15, 20, 30],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf': [1, 2, 4],
-    'max_features': ['sqrt', 'log2', None]
+    'penalty': ['l1', 'l2', 'elasticnet'],
+    'solver': ['liblinear', 'saga'],
+    'max_iter': [100, 200, 300],
+    'C': np.logspace(-3, 3, 7),
+    'l1_ratio': [0, 0.25, 0.5, 0.75, 1]
 }
-# Inicializar el objeto GridSearchCV
+# Crea un objeto GridSearchCV
 grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='accuracy', cv=5, n_jobs=-1)
 
-# Ajustar el modelo al conjunto de datos
-grid_search.fit(X_train, y_train)  # Asegúrate de tener tus datos de entrenamiento (X_train, y_train)
+# Ajusta el modelo con Grid Search
+grid_search.fit(X_train, y_train)
 
 # Obtiene el mejor modelo
 best_model = grid_search.best_estimator_
@@ -64,12 +63,6 @@ disp.plot(cmap=plt.cm.Blues, values_format=".4g")  # Visualiza la matriz de conf
 plt.savefig("confusion_matrix.png")
 plt.title("Confusion Matrix")
 plt.show()
-
-# Create a series containing feature importances from the model and feature names from the training data
-feature_importances = pd.Series(best_params.feature_importances_, index=X_train.columns).sort_values(ascending=False)
-
-# Plot a simple bar chart
-feature_importances.plot.bar();
 
 
 
