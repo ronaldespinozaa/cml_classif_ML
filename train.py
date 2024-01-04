@@ -23,47 +23,43 @@ plt.title("Balanced data")
 plt.savefig("balanced_data.png")
 
 # Crea el modelo de regresión logística
-model = LogisticRegression(max_iter=1000, random_state=42, penalty='elasticnet', solver='saga')
+model = RandomForestClassifier()
 
-# Defina el espacio de búsqueda de hiperparámetros
+# Definir el espacio de búsqueda de parámetros
 param_grid = {
-    'max_iter': [500, 1000, 2000, 3000],
-    'C': [0.001, 0.01, 0.1, 1, 10],  # Parámetro de regularización
-    'l1_ratio': [0.1, 0.3, 0.5, 0.7, 0.9]  # Ratio de la penalización L1 en Elastic Net
+    'n_estimators': [500, 1000, 1500, 2000],
+    'criterion': ['gini', 'entropy'],
+    'max_depth': [None, 5, 10, 15, 20, 30],
+    'min_samples_split': [2, 5, 10],
+    'min_samples_leaf': [1, 2, 4],
+    'max_features': ['sqrt', 'log2', None]
 }
+# Inicializar el objeto GridSearchCV
+grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='accuracy', cv=5, n_jobs=-1)
 
-# Crea un objeto GridSearchCV
-grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, n_jobs=-1, )
-
-# Ajusta el modelo con Grid Search
-grid_search.fit(X_train, y_train)
+# Ajustar el modelo al conjunto de datos
+grid_search.fit(X_train, y_train)  # Asegúrate de tener tus datos de entrenamiento (X_train, y_train)
 
 # Obtiene el mejor modelo
 best_model = grid_search.best_estimator_
+best_params = grid_search.best_params_
 
 # Evalúa el rendimiento del mejor modelo en el conjunto de prueba
 test_accuracy = best_model.score(X_test, y_test)
 print(f"Test Accuracy with Best Model: {test_accuracy}")
+print(f"Best Parameters: {best_params}")
 
-# Obtiene informes de clasificación y matrices de confusión
-classification_rep = classification_report(y_test, best_model.predict(X_test), labels=best_model.classes_, output_dict=True,digits=2)
+# Obtiene informe de matrices de confusión
 conf_matrix = confusion_matrix(y_test, best_model.predict(X_test), labels=best_model.classes_)
-
-# Imprime informe de clasificación
-# .iloc[:-1, :] to exclude support
-sns.heatmap(pd.DataFrame(classification_rep).iloc[:-1, :].T, annot=True,)
-plt.title("Classification Report")
-plt.savefig("classification_report.png")  # Guarda el informe de clasificación()
 
 # Guarda los resultados en un archivo de texto
 with open("metrics.txt", "w") as f:
-    f.write(f"Test Accuracy: {test_accuracy}")
+    f.write(f"Test Accuracy: {test_accuracy}\n")
+    f.write(f"Best Parameters: {best_params}")
     # f.write(f"Precision label_0: {round(classification_rep['0.0']['precision'],3)}\n")
     # f.write(f"Precision label_1: {round(classification_rep['1.0']['precision'],3)}\n")
     # f.write(f"Recall label_0: {round(classification_rep['0.0']['recall'],3)}\n")
     # f.write(f"Recall label_1: {round(classification_rep['1.0']['recall'],3)}\n")
-
-
 
 # Visualiza la matriz de confusión
 disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=best_model.classes_)
@@ -71,6 +67,12 @@ disp.plot(cmap=plt.cm.Blues, values_format=".4g")  # Visualiza la matriz de conf
 plt.savefig("confusion_matrix.png")
 plt.title("Confusion Matrix")
 plt.show()
+
+# Create a series containing feature importances from the model and feature names from the training data
+feature_importances = pd.Series(best_params.feature_importances_, index=X_train.columns).sort_values(ascending=False)
+
+# Plot a simple bar chart
+feature_importances.plot.bar();
 
 
 
