@@ -15,5 +15,4 @@ jobs:
           python train.py
 
           cat metrics.txt >> report.md
-          #echo "![](./confusion_matrix.png)" >> report.md
           cml comment create report.md
