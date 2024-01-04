@@ -56,10 +56,7 @@ conf_matrix = confusion_matrix(y_test, best_model.predict(X_test), labels=best_m
 with open("metrics.txt", "w") as f:
     f.write(f"Test Accuracy: {test_accuracy}\n")
     f.write(f"Best Parameters: {best_params}")
-    # f.write(f"Precision label_0: {round(classification_rep['0.0']['precision'],3)}\n")
-    # f.write(f"Precision label_1: {round(classification_rep['1.0']['precision'],3)}\n")
-    # f.write(f"Recall label_0: {round(classification_rep['0.0']['recall'],3)}\n")
-    # f.write(f"Recall label_1: {round(classification_rep['1.0']['recall'],3)}\n")
+
 
 # Visualiza la matriz de confusión
 disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=best_model.classes_)
@@ -73,6 +70,7 @@ feature_importances = pd.Series(best_params.feature_importances_, index=X_train.
 
 # Plot a simple bar chart
 feature_importances.plot.bar();
+
 
 
 
