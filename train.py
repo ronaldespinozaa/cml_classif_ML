@@ -23,17 +23,18 @@ plt.title("Balanced data")
 plt.savefig("balanced_data.png")
 
 # Crea el modelo de regresión logística
-model = LogisticRegression(max_iter=1000, random_state=42, penalty='elasticnet', solver='saga')
+model = LogisticRegression()
 
 # Defina el espacio de búsqueda de hiperparámetros
 param_grid = {
-    'max_iter': [500, 1000, 2000, 3000],
-    'C': [0.001, 0.01, 0.1, 1, 10],  # Parámetro de regularización
-    'l1_ratio': [0.1, 0.3, 0.5, 0.7, 0.9]  # Ratio de la penalización L1 en Elastic Net
+    'penalty': ['l1', 'l2', 'elasticnet'],
+    'solver': ['liblinear', 'saga'],
+    'max_iter': [100, 200, 300],
+    'C': np.logspace(-3, 3, 7),
+    'l1_ratio': [0, 0.25, 0.5, 0.75, 1]
 }
-
 # Crea un objeto GridSearchCV
-grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5, n_jobs=-1, )
+grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='accuracy', cv=5, n_jobs=-1)
 
 # Ajusta el modelo con Grid Search
 grid_search.fit(X_train, y_train)
