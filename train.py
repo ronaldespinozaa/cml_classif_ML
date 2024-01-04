@@ -22,54 +22,42 @@ sns.histplot(pd.DataFrame(y_train))
 plt.title("Balanced data")
 plt.savefig("balanced_data.png")
 
-# Crea el modelo de regresión logística
-model = RandomForestClassifier()
+# Create the model
+model = RandomForestClassifier(n_estimators=500,criterion= 'entropy',max_depth=None,min_samples_split=2,min_samples_leaf=1,max_features=None,random_state=42,n_jobs=-1)
+model.fit(X_train, y_train)
 
-# Definir el espacio de búsqueda de parámetros
-param_grid = {
-    'n_estimators': [500, 1000, 1500, 2000],
-    'criterion': ['gini', 'entropy'],
-    'max_depth': [None, 5, 10, 15, 20, 30],
-    'min_samples_split': [2, 5, 10],
-    'min_samples_leaf': [1, 2, 4],
-    'max_features': ['sqrt', 'log2', None]
-}
-# Inicializar el objeto GridSearchCV
-grid_search = GridSearchCV(estimator=model, param_grid=param_grid, scoring='accuracy', cv=5, n_jobs=-1)
+# Get results   
+feature_importance = model.feature_importances_
+params = model.get_params()
 
-# Ajustar el modelo al conjunto de datos
-grid_search.fit(X_train, y_train)  # Asegúrate de tener tus datos de entrenamiento (X_train, y_train)
-
-# Obtiene el mejor modelo
-best_model = grid_search.best_estimator_
-best_params = grid_search.best_params_
-
-# Evalúa el rendimiento del mejor modelo en el conjunto de prueba
-test_accuracy = best_model.score(X_test, y_test)
+# Evaluate model
+test_accuracy = model.score(X_test, y_test)
 print(f"Test Accuracy with Best Model: {test_accuracy}")
-print(f"Best Parameters: {best_params}")
+print(f"Best Parameters: {params}")
 
-# Obtiene informe de matrices de confusión
-conf_matrix = confusion_matrix(y_test, best_model.predict(X_test), labels=best_model.classes_)
+# Get confusion matrix
+conf_matrix = confusion_matrix(y_test,model.predict(X_test), labels=model.classes_)
 
-# Guarda los resultados en un archivo de texto
+# Saving results
 with open("metrics.txt", "w") as f:
     f.write(f"Test Accuracy: {test_accuracy}\n")
-    f.write(f"Best Parameters: {best_params}")
+    f.write(f"Best Parameters: {params}")
 
 
-# Visualiza la matriz de confusión
-disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=best_model.classes_)
+# Visualizate the confusion matrix
+disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=model.classes_)
 disp.plot(cmap=plt.cm.Blues, values_format=".4g")  # Visualiza la matriz de confusión
 plt.savefig("confusion_matrix.png")
 plt.title("Confusion Matrix")
 plt.show()
 
 # Create a series containing feature importances from the model and feature names from the training data
-feature_importances = pd.Series(best_params.feature_importances_, index=X_train.columns).sort_values(ascending=False)
+feature_importances = pd.Series(model.feature_importances_, index=pd.DataFrame(X_train,).columns).sort_values(ascending=False)
 
 # Plot a simple bar chart
-feature_importances.plot.bar();
+feature_importances.plot.bar()
+plt.savefig("feature_importance.png")
+plt.show();
 
 
 
