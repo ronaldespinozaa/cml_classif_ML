@@ -17,5 +17,7 @@ Here we compare the use o gridsearch in 2 models as Random Forest Classifier(Mai
 
 ## Confussion Matrix RFC
 ![Confussion Matrix RFC](confusion_matrix.png)
+
+
 ## Confussion Matrix LR
 ![Confussion Matrix LR](https://github.com/ronaldespinozaa/cml_classif_ML/blob/ronaldespinozaa-patch-1/confusion_matrix.png)
