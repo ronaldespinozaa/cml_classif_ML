@@ -15,4 +15,4 @@ The only environmental variable set in `.github/workflows/cml.yaml` is `GITHUB_T
 ## Results
 Here we compare the use o gridsearch in 2 models as Random Forest Classifier(Main) and Logistic Regressión(Branch_1)
 
-![Confussion Matrix RFC](condussion_matrix.png)
+![Confussion Matrix RFC](confussion_matrix.png)
