@@ -56,6 +56,14 @@ with open("metrics.txt", "w") as f:
     f.write(f"Test Accuracy: {test_accuracy}\n")
     f.write(f"Best Parameters: {best_params}")
 
+# Crear un nuevo README.md con el encabezado
+echo "## Métricas del Modelo" > README.md
+echo "" >> README.md
+
+# Agregar métricas al README.md usando los valores definidos
+echo "Test Accuracy: ${test_accuracy}" >> README.md
+echo "Best Parameters: ${best_params}" >> README.md
+
 
 # Visualiza la matriz de confusión
 disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=best_model.classes_)
