@@ -16,12 +16,7 @@ jobs:
 
           cat metrics.txt >> report.md
           cml comment create report.md
+          
+          cat metrics.txt >> readme1.md
+          cml comment create readme1.md
 
-          # Crear una tabla en Markdown con los resultados del modelo
-          "| Métrica                | Valor          |" >> README1.md
-          "| Test Accuracy          | ${test_accuracy} |" >> README1.md
-          # Agregar una descripción del modelo
-          "" >> README1.md
-          "### Descripción de los Resultados del Modelo de Regresión Logística" >> README1.md
-          "Aquí se presentan los resultados obtenidos del modelo de regresión logística." >> README1.md
-          "La precisión en el conjunto de prueba y los mejores parámetros se detallan en la tabla anterior." >> README1.md
