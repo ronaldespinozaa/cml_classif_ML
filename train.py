@@ -47,6 +47,13 @@ plt.savefig("confusion_matrix.png")
 plt.title("Confusion Matrix")
 plt.show()
 
+# Crear el contenido del README1.md
+readme_content = f"## Métricas del Modelo\n\nTest Accuracy: {test_accuracy}\nBest Parameters: {best_params}"
+
+# Escribir el contenido en un nuevo archivo README.md
+with open("README1.md", "w") as readme_file:
+    readme_file.write(readme_content)
+
 # Create a series containing feature importances from the model and feature names from the training data
 feature_importances = pd.Series(model.feature_importances_, index=pd.DataFrame(X_train,).columns).sort_values(ascending=False)
 
