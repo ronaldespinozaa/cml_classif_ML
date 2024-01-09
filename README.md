@@ -15,9 +15,15 @@ The only environmental variable set in `.github/workflows/cml.yaml` is `GITHUB_T
 ## Results
 Here we compare the use o gridsearch in 2 models as Random Forest Classifier(Main) and Logistic Regressión(Branch_1)
 
-## Confussion Matrix RFC
+# Confussion Matrix RFC
 ![Confussion Matrix RFC](confusion_matrix.png)
 
+# Accuracy:
+Test Accuracy: 0.864
 
-## Confussion Matrix LR
+
+# Confussion Matrix LR
 ![Confussion Matrix LR](https://github.com/ronaldespinozaa/cml_classif_ML/blob/ronaldespinozaa-patch-1/confusion_matrix.png)
+
+# Accuracy:
+Test Accuracy: 0.896
