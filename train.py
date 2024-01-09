@@ -48,7 +48,7 @@ plt.title("Confusion Matrix")
 plt.show()
 
 # Crear el contenido del README1.md
-readme_content = f"## Métricas del Modelo\n\nTest Accuracy: {test_accuracy}\nBest Parameters: {best_params}"
+readme_content = f"## Métricas del Modelo\n\nTest Accuracy: {test_accuracy}\nBest Parameters: {params}"
 
 # Escribir el contenido en un nuevo archivo README.md
 with open("README1.md", "w") as readme_file:
