@@ -16,7 +16,4 @@ jobs:
 
           cat metrics.txt >> report.md
           cml comment create report.md
-          
-          cat metrics.txt >> readme1.md
-          cml comment create readme1.md
-
+  
