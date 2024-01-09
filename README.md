@@ -1,12 +1,10 @@
-# CML basic use case
+## Logistic Regression Model:
 
-This branch use a sample project using [CML](https://github.com/iterative/cml). When a pull request is made in this repository, the following will occur:
-- GitHub will deploy a runner machine with a specified CML Docker environment
-- The runner will execute a workflow to train a Logistic Regression model (`python train.py`) optimized previously using Grid Search.
-- A visual CML report about the model performance will be returned as a comment in the pull request.
+## Results
 
-The key file enabling these actions is `.github/workflows/cml.yaml`.
+# Accuracy
 
-## Secrets and environmental variables
-The only environmental variable set in `.github/workflows/cml.yaml` is `GITHUB_TOKEN`, which is configured by default in every GitHub repository. No secrets must be set by the user. 
+
+# Confussion Matrix LR
+![Confussion Matrix LR](https://github.com/ronaldespinozaa/cml_classif_ML/blob/ronaldespinozaa-patch-1/confusion_matrix.png)
 
