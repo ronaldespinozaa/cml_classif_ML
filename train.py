@@ -1,11 +1,8 @@
 import json
 import os
-
 from sklearn.ensemble import RandomForestClassifier
-from sklearn.datasets import make_classification
 from sklearn.metrics import confusion_matrix, ConfusionMatrixDisplay, classification_report
 from sklearn.linear_model import LogisticRegression
-from sklearn.model_selection import GridSearchCV
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
@@ -42,7 +39,6 @@ conf_matrix = confusion_matrix(y_test,model.predict(X_test), labels=model.classe
 with open("metrics.txt", "w") as f:
     f.write(f"Test Accuracy: {test_accuracy}\n")
     f.write(f"Best Parameters: {params}")
-
 
 # Visualizate the confusion matrix
 disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=model.classes_)
