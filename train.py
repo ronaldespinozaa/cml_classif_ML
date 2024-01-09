@@ -24,18 +24,12 @@ plt.savefig("balanced_data.png")
 
 # Crea el modelo de regresión logística
 model = LogisticRegression(C=1,l1_ratio=0,max_iter=100,penalty='l1',solver='saga',random_state=42,)
-
-
 model.fit(X_train, y_train)
-
-# Obtiene el mejor modelo
-best_estimator_ = model.best_estimator_
-best_params = model.best_params_
 
 # Evalúa el rendimiento del mejor modelo en el conjunto de prueba
 test_accuracy = model.score(X_test, y_test)
 print(f"Test Accuracy with Best Model: {test_accuracy}")
-print(f"Best Parameters: {best_params}")
+print(f"Best Parameters: {model.get_params()}")
 
 # Obtiene informe de matrices de confusión
 conf_matrix = confusion_matrix(y_test, model.predict(X_test), labels=model.classes_)
@@ -43,10 +37,10 @@ conf_matrix = confusion_matrix(y_test, model.predict(X_test), labels=model.class
 # Guarda los resultados en un archivo de texto
 with open("metrics.txt", "w") as f:
     f.write(f"Test Accuracy: {test_accuracy}\n")
-    f.write(f"Best Parameters: {best_params}")
+    f.write(f"Best Parameters: {model.get_params()}")
 
 # Crear el contenido del README1.md
-readme_content = f"## Métricas del Modelo\n\nTest Accuracy: {test_accuracy}\nBest Parameters: {best_params}"
+readme_content = f"## Métricas del Modelo\n\nTest Accuracy: {test_accuracy}\nBest Parameters: {model.get_params()}"
 
 # Escribir el contenido en un nuevo archivo README.md
 with open("README1.md", "w") as readme_file:
