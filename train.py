@@ -39,13 +39,6 @@ with open("metrics.txt", "w") as f:
     f.write(f"Test Accuracy: {test_accuracy}\n")
     f.write(f"Best Parameters: {model.get_params()}")
 
-# Crear el contenido del README1.md
-readme_content = f"## Métricas del Modelo\n\nTest Accuracy: {test_accuracy}\nBest Parameters: {model.get_params()}"
-
-# Escribir el contenido en un nuevo archivo README.md
-with open("README1.md", "w") as readme_file:
-    readme_file.write(readme_content)
-
 # Visualiza la matriz de confusión
 disp = ConfusionMatrixDisplay(confusion_matrix=conf_matrix, display_labels=model.classes_)
 disp.plot(cmap=plt.cm.Blues, values_format=".4g")  # Visualiza la matriz de confusión
